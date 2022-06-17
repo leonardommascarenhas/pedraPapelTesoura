@@ -1,32 +1,49 @@
-function randomNumber() {
-  let jogada = Math.floor(Math.random() * 3);
-  if (jogada == 0) {
-    return "Pedra";
-  } else if (jogada == 1) {
-    return "Papel";
-  } else {
-    return "Tesoura";
+function computerSelection() {
+  let random = Math.floor(Math.random() * 3);
+  if (random == 0) {
+    return "pedra";
   }
+  if (random == 1) {
+    return "papel";
+  }
+  if (random == 2) {
+    return "tesoura";
+  }
+}
+
+function playerChoice() {
+  let input = prompt("Type Rock, Paper, or Scissors");
+  while (input == null) {
+    input = prompt("Type Rock, Paper, or Scissors");
+  }
+  input = input.toLowerCase();
+  return input;
 }
 
 function round(jogadaPlayer, jogadaComputador) {
-  if (jogadaPlayer === jogadaComputador) {
+  if (jogadaPlayer == jogadaComputador) {
     return "Empate";
   } else if (
-    (jogadaPlayer === "Pedra" && jogadaComputador === "Tesoura") ||
-    (jogadaPlayer === "Papel" && jogadaComputador === "Pedra") ||
-    (jogadaPlayer === "Tesoura" && jogadaComputador === "Papel")
+    (jogadaPlayer == "pedra" && jogadaComputador == "tesoura") ||
+    (jogadaPlayer == "tesoura" && jogadaComputador == "papel") ||
+    (jogadaPlayer == "papel" && jogadaComputador == "pedra")
   ) {
-    return "Você ganhou!!!";
+    return "Player ganhou";
   } else {
-    return "Você perdeu!!!";
+    return "Computador ganhou";
   }
 }
 
-const jogadaComputador = randomNumber();
-console.log(jogadaComputador);
-console.log(round("Tesoura", jogadaComputador));
+let jogadaPlayer = playerChoice();
+let jogadaComputador = computerSelection();
 
 function game() {
-  for (let i = 0; i <= 5; i++) {}
+  for (let i = 0; i <= 5; i++) {
+    let jogadaPlayer = playerChoice();
+    let jogadaComputador = computerSelection();
+    let resultado = round(jogadaPlayer, jogadaComputador);
+    console.log(resultado);
+  }
 }
+
+game();
