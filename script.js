@@ -10,40 +10,47 @@ function computerSelection() {
     return "tesoura";
   }
 }
+const pedra = document.querySelector(".pedra");
+const papel = document.querySelector(".papel");
+const tesoura = document.querySelector(".tesoura");
 
-function playerChoice() {
-  let input = prompt("Type Rock, Paper, or Scissors");
-  while (input == null) {
-    input = prompt("Type Rock, Paper, or Scissors");
+function playerChoice(e) {
+  e.preventDefault();
+  let jogadaPlayer = "";
+  if (e.target.classList.contains("pedra")) {
+    jogadaPlayer = "pedra";
   }
-  input = input.toLowerCase();
-  return input;
+  if (e.target.classList.contains("papel")) {
+    jogadaPlayer = "papel";
+  }
+  if (e.target.classList.contains("tesoura")) {
+    jogadaPlayer = "tesoura";
+  }
+  return jogadaPlayer;
 }
 
-function round(jogadaPlayer, jogadaComputador) {
-  if (jogadaPlayer == jogadaComputador) {
-    return "Empate";
-  } else if (
-    (jogadaPlayer == "pedra" && jogadaComputador == "tesoura") ||
-    (jogadaPlayer == "tesoura" && jogadaComputador == "papel") ||
-    (jogadaPlayer == "papel" && jogadaComputador == "pedra")
+pedra.addEventListener("click", playerChoice);
+papel.addEventListener("click", playerChoice);
+tesoura.addEventListener("click", playerChoice);
+
+function round(jogadaPlayer, jogadaComputer) {
+  if (jogadaPlayer === jogadaComputer) {
+    return "empate";
+  }
+  if (
+    (jogadaPlayer == "pedra" && jogadaComputer == "tesoura") ||
+    (jogadaPlayer == "papel" && jogadaComputer == "pedra") ||
+    (jogadaPlayer == "tesoura" && jogadaComputer == "papel")
   ) {
-    return "Player ganhou";
-  } else {
-    return "Computador ganhou";
+    return "player";
+  }
+  if (
+    (jogadaPlayer == "pedra" && jogadaComputer == "papel") ||
+    (jogadaPlayer == "papel" && jogadaComputer == "tesoura") ||
+    (jogadaPlayer == "tesoura" && jogadaComputer == "pedra")
+  ) {
+    return "computador";
   }
 }
 
-let jogadaPlayer = playerChoice();
-let jogadaComputador = computerSelection();
-
-function game() {
-  for (let i = 0; i <= 5; i++) {
-    let jogadaPlayer = playerChoice();
-    let jogadaComputador = computerSelection();
-    let resultado = round(jogadaPlayer, jogadaComputador);
-    console.log(resultado);
-  }
-}
-
-game();
+jogadaPlayer = playerChoice();
